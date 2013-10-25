@@ -1,0 +1,9 @@
+
+(defun/extern printf ((format ptr (const char)) (return int) |...|))
+
+(defun main ((argc int) (argv (ptr ptr char)) (return int))
+  (let ((foo 6)
+        (bar 5))
+    (printf "%d" (+ foo bar)))
+  (return 0))
+

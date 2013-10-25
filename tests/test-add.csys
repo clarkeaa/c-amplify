@@ -1,0 +1,5 @@
+
+(defsystem :add-test
+ (:files "add"))
+
+(update :add-test)
