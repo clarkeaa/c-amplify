@@ -6,7 +6,7 @@
     :author "dep"
     :license "GPL"
 
-    :depends-on (:c-amplify :unix-options)
+    :depends-on (:c-amplify :unix-options :external-program)
 
     ;; Components
     :serial t

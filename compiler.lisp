@@ -14,23 +14,35 @@
 (defparameter *CC* "clang")
 
 (defun c-system-gen-source (in-path &key (out-path nil))
-  (format t "inpath:~a~%" in-path)
   (let ((system (car (load-csys-file in-path))))
     (when (not (null out-path))
       (setf (c-system-output-file system) (pathname out-path)))
-    (update-system system)))
+    (update-system system)
+    (c-system-output-file system)))
+
+(defun c-system-gen-binary (in-path &key (out-path nil))
+  (let* ((source (c-system-gen-source in-path))
+         (args (list source)))
+    (when (not (null out-path))
+      (setf args (cons "-o" (cons out-path args))))
+    (external-program:run *CC* args 
+                          :output *standard-output*
+                          :error *standard-output*)))
 
 (defun main ()
   (unix-options:with-cli-options () 
-    (unix-options:&parameters out-path) 
-    (format t "~a ~a~%" out-path unix-options:free)
-    (c-system-gen-source (car unix-options:free) 
-                         :out-path out-path)))
+    (gen-c-source unix-options:&parameters out-path) 
+    (cond (gen-c-source
+           (c-system-gen-source (car unix-options:free) 
+                                :out-path out-path))
+          (t
+           (c-system-gen-binary (car unix-options:free)
+                                :out-path out-path)))))
 
 (in-package #:common-lisp-user)
 
-(import 'se.defmacro.c-amplify::defsystem *package*)
-(import 'se.defmacro.c-amplify::update *package*)
+(shadowing-import 'se.defmacro.c-amplify::defsystem *package*)
+(shadowing-import 'se.defmacro.c-amplify::update *package*)
 
 (defun build ()
   (sb-ext:save-lisp-and-die "compiler" 
