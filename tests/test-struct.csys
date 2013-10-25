@@ -1,0 +1,5 @@
+
+(defsystem :test-struct
+ (:files "struct"))
+
+(update :test-struct)

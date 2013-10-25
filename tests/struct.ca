@@ -1,0 +1,13 @@
+
+(defun/extern printf ((format ptr (const char)) (return int) |...|))
+
+
+(defstruct foobar (x (int)) (y (int)))
+
+(defun main ((argc int) (argv (ptr ptr char)) (return int))
+  (declare (foo (struct foobar)))
+  (= (-> foo x) 12)
+  (= (-> foo y) 34)
+  (printf "%d%d" (-> foo x) (-> foo y))
+  (return 0))
+

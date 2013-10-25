@@ -36,6 +36,9 @@
 (deftest ("test-add" output)
   (assert-equal "11" output))
 
+(deftest ("test-struct" output)
+  (assert-equal "1234" output))
+
 (defun main ()   
   (let ((pass-count 0) 
         (count 0))
