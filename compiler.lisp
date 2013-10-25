@@ -17,7 +17,7 @@
   (format t "inpath:~a~%" in-path)
   (let ((system (car (load-csys-file in-path))))
     (when (not (null out-path))
-      (setf (c-system-output-file system) out-path))
+      (setf (c-system-output-file system) (pathname out-path)))
     (update-system system)))
 
 (defun main ()
