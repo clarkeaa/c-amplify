@@ -8,7 +8,8 @@
                 defsystem
                 update)
   (:export main
-           c-system-gen-source))
+           c-system-gen-source
+           c-system-gen-binary))
 (in-package #:compiler)
 
 (defparameter *CC* "clang")
