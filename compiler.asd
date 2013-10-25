@@ -10,5 +10,5 @@
 
     ;; Components
     :serial t
-    :components ((:file "compiler")))
+    :components ((:file "code/compiler")))
 
